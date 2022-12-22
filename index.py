@@ -1,7 +1,6 @@
 from vk_api import VkApi
 from vk_api.bot_longpoll import VkBotLongPoll, VkBotEventType
 from vk_api.keyboard import VkKeyboard, VkKeyboardColor
-# import requests
 import random
 from datetime import datetime
 import pandas as pd
