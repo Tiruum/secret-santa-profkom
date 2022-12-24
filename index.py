@@ -135,7 +135,7 @@ def create_list_of_who_gifted(users):
 	to_df['Получил'] = gifts2
 	df = pd.DataFrame(to_df)
 	print(df)
-	df.to_excel('C:/Users/Timur/Desktop/secret_santa/results.xlsx', index=False)
+	df.to_excel('results.xlsx', index=False)
 
 def tag_who_gift(dataframe, user_id, what):
 	df = dataframe
@@ -251,15 +251,21 @@ def main(users):
 			elif event.object.payload.get('type') == 'узнать про подарки':
 				send_gift_keyboard(user_id, 'Укажите подарили ли вам подарок, или его подарили вы. А может, и все вместе.')
 			elif event.object.payload.get('type') == 'подарил подарок':
-				df = pd.read_excel('C:/Users/Timur/Desktop/secret_santa/results.xlsx')
+				df = pd.read_excel('results.xlsx')
 				tag_who_gift(df, user_id, 'подарил')
-				df.to_excel('C:/Users/Timur/Desktop/secret_santa/results.xlsx', index=False)
+				df.to_excel('results.xlsx', index=False)
 				send_keyboard(user_id, 'Я отметил, что вы подарили подарок')
+				userdata = vk_for_getting_names.method("users.get", {"user_ids": user_id})
+				addresser_name = userdata[0]['first_name'] + ' ' + userdata[0]['last_name']
+				print(f'\n{str(datetime.now())}: {addresser_name} ({user_id}) подарил подарок')
 			elif event.object.payload.get('type') == 'получил подарок':
-				df = pd.read_excel('C:/Users/Timur/Desktop/secret_santa/results.xlsx')
+				df = pd.read_excel('results.xlsx')
 				tag_who_gift(df, user_id, 'получил')
-				df.to_excel('C:/Users/Timur/Desktop/secret_santa/results.xlsx', index=False)
+				df.to_excel('results.xlsx', index=False)
 				send_keyboard(user_id, 'Я отметил, что вы получили подарок')
+				userdata = vk_for_getting_names.method("users.get", {"user_ids": user_id})
+				addresser_name = userdata[0]['first_name'] + ' ' + userdata[0]['last_name']
+				print(f'\n{str(datetime.now())}: {addresser_name} ({user_id}) получил подарок')
 			elif event.object.payload.get('type') == 'назад к основной клавиатуре':
 				send_keyboard(user_id, 'Выберите на панели внизу кому хотите отправить сообщение')
 
