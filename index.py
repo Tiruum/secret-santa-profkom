@@ -88,13 +88,12 @@ def echo(users, text, exceptlist=[]):
 	Функция для написания всем пользователям какого-либо сообщения
 	'''
 	vk_n = vk_session
+	numberOfUser = 0
 	for user_id in users:
 		if user_id not in exceptlist:
-			addressee = right_pair(users, user_id)
-			userdata = vk_n.method("users.get", {"user_ids": addressee})
-			addressee_name = userdata[0]['first_name'] + ' ' + userdata[0]['last_name']
-			vk.messages.send(user_id=user_id, message=text,
-							 random_id=random.randint(-2147483648, +2147483648))
+			vk.messages.send(user_id=user_id, message=text, random_id=random.randint(-2147483648, +2147483648))
+			numberOfUser = numberOfUser + 1
+	print(f'{numberOfUser} из {len(users)-len(exceptlist)} ({len(users)} всего)')
 
 def create_to_whom_dict(users):
 	'''
@@ -306,8 +305,8 @@ moderator_id = 197575967
 users = [374498079, 159370300, 269979603, 434541190, 150422569, 625436250, 100956113, 559371702, 262673081, 132159952, 163177089, 145634704, 53008666, 226231873, 234539359, 201214709, 322798073, 305096077, 505302564, 202258317, 65704008, 499398594, 249335867, 298655683, 416409141, 2153814, 289778686, 540758297, 499640518, 81833709, 165594890, 314458131, 575739185, 374509951, 346949112, 59222745, 489341282, 173533022, 228232081, 192627346, 62720906, 245770683, 744636515, 182878754, 143778117, 444273691, 206645166, 270929713, 173356739, 175870436, 54794134, 399736264, 262030809, 359014722, 153740791, 188878796, 445507633, 398521668, 168423391, 746385852, 139824245, 323016134, 277633495, 584730627, 464985117, 62949881, 352205074, 171510325, 384674948, 528371803, 630808264, 234264762, 367510036, 225828814, 171907622, 300279491, 277165214, 357358069]
 
 # Основная хуйня
-mode = 'main' # main | response | createList
-if mode != 'createList':
+mode = 'spam' # main | response | createList | spam
+if ((mode == 'main') or (mode == 'response')):
 	while True:
 		try:
 			if mode == 'main':
@@ -316,8 +315,11 @@ if mode != 'createList':
 				sendResponse(message) # Это функция для рассылки сообщения по типу "Привет, зарегайся в форме" если боту что-то пишут
 		except Exception as e:
 			print(f'{str(datetime.now())}: {e}\n')
-
-else:
+elif mode == 'spam':
+	print('Начинаю рассылку')
+	echo([136227130, 197575967], '☃ Хо-хо-хо\n\nНапоминаем, что подарить подарок нужно до 29 декабря!\n\nПриходите в 224 ГК, чтобы красиво упаковать презент подопечному.', exceptlist=[136227130]) # Это функция рассылки сообщения всем пользователям, за исключением тех, кто указан в exceptlist
+	print('Рассылка закончена')
+elif mode == 'createList':
 	create_list_of_who_gifted(users) # Если нужно создать список людей с отметками подарили ли они и получили ли подарок
 
 # Ход действий:
