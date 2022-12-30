@@ -1,0 +1,22 @@
+{
+  "name": "secret-santa-profkom",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Tiruum/secret-santa-profkom.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Tiruum/secret-santa-profkom/issues"
+  },
+  "homepage": "https://github.com/Tiruum/secret-santa-profkom#readme",
+  "dependencies": {
+    "python-shell": "^3.0.1"
+  }
+}
