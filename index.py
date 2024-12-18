@@ -6,8 +6,8 @@ from datetime import datetime
 import pandas as pd
 import json
 
-token = '699dc8e890b683d8ad1b1f10c3ef5bd1611ca18f5dab744ab633c33011ba94d5b8ad16e9b89eea2e5726d'
-user_token = "abae8d0a4a0b919c6c21edc6b9116e8ee43c3aa491abefd920bd9ee4e8e82ccd0468f506bac995ab19f3b"
+token = 'token'
+user_token = "token"
 
 def right_pair(users_list, user):
 	'''
